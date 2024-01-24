@@ -18,6 +18,7 @@ import { Locations } from '../../components/Locations';
 import { getAddressLocation } from '../../utils/getAddressLocation';
 import { LocationInfoProps } from '../../components/LocationInfo';
 import dayjs from 'dayjs';
+import { Loading } from '../../components/Loading';
 
 type RouteParamsProps = {
   id: string;
@@ -27,9 +28,9 @@ export function Arrival() {
   const [coordinates, setCoordinates] = useState<LatLng[]>([]);
   const [departure, setDeparture] = useState<LocationInfoProps>({} as LocationInfoProps);
   const [arrival, setArrival] = useState<LocationInfoProps | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-
-
+ 
   const route = useRoute();
   const { id} = route.params as RouteParamsProps;
 
@@ -37,6 +38,7 @@ export function Arrival() {
   const {goBack} = useNavigation();
   const historic = useObject(Historic, new Realm.BSON.UUID(id) as unknown as string)
 
+  
   const title = historic?.status === 'departure' ? 'Chegada' : 'Detalhes' 
 
     function handleRemoveVehicleUsage(){ 
@@ -92,12 +94,14 @@ export function Arrival() {
       const updateAt = historic!.updated_at.getTime();
       setDataNotSynced(updateAt > lastSync);
 
+
       if(historic?.status === 'departure'){ 
         const locationsStorage = await getStorageLocation();
         setCoordinates(locationsStorage);
 
       } else {
-        setCoordinates(historic?.coords ?? []);
+        let coords = historic.coords.map(({ latitude, longitude }) => ({ latitude, longitude }));
+			setCoordinates(coords ?? []);
       }
 
       if(historic?.coords[0]){
@@ -117,11 +121,18 @@ export function Arrival() {
         })
       }
 
+      setIsLoading(false)
     }
 
     useEffect(() => {
       getLocationsInfo();
     },[historic]);
+
+    if(isLoading){
+      return (
+        <Loading />
+      )
+    }
 
   return (
     <Container>

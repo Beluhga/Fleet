@@ -19,7 +19,7 @@ const TextAreaInput = forwardRef<TextInput, Props> (({label, ...rest}, ref) => {
             ref= {ref}
             placeholderTextColor={COLORS.GRAY_400}
             multiline
-            autoCapitalize='sentences'
+            autoCapitalize="sentences"
             {...rest}
         />
 

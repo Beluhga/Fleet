@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { Container, Content, Message } from './styles';
+import { Container, Content, Message, MessageContent } from './styles';
 import { Header } from '../../components/Header';
 import { LicensePlateInput } from '../../components/LicensePlateInput';
 import { TextAreaInput } from '../../components/TextAreaInput';
@@ -25,6 +25,7 @@ import { LocationInfo } from '../../components/LocationInfo';
 import { Car } from 'phosphor-react-native';
 import { Map } from '../../components/Map';
 import { startLocationTask } from '../../tasks/BackgroundLocationTask';
+import { openSetting } from '../../utils/openSettings';
 
 
 export function Departure() {
@@ -131,10 +132,16 @@ export function Departure() {
     return (
       <Container>
         <Header title='Saída' />
-        <Message>
-          Você precisa permitir que o aplicativo tenha acesso a localização para utilizar essa funcionalidade.
-          Por favor, acesse as configurações do seu dispositivo para conceder essa permissão ao aplicativo.
-        </Message>
+
+        <MessageContent>
+          <Message>
+            Você precisa permitir que o aplicativo tenha acesso a localização para utilizar essa funcionalidade.
+            Por favor, acesse as configurações do seu dispositivo para conceder essa permissão ao aplicativo.
+          </Message>
+
+          <Button title="Abrir Configurações" onPress={openSetting}/>
+
+        </MessageContent>
       </Container>
     )
   }

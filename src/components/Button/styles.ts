@@ -9,7 +9,7 @@ export const Container = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
 
-  background-color: ${({theme}) => theme.COLORS.BRAND_LIGHT};
+  background-color: ${({theme}) => theme.COLORS.BRAND_MID};
 `;
 
 export const Title = styled.Text`
