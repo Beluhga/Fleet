@@ -80,6 +80,18 @@ cd Fleet
 # instalar dependências - install dependencies
 npm i
 
+# Precisa das chaves
+criar uma pasta ".env" na raiz do projeto.
+npx expo prebuild
+npx expo run:android
+depois que for criado, usar na pasta "Android e IOS(se for usar IOS)": no CMD: ".\gradlew signinReport"
+para pegar o SHA1
+Vai precisar do SHA1 para colocar quando "criar o ID do cliente do OAuth" no Google Cloud
+ANDROID_CLIENT_ID ou IOS_CLIENT_ID e WEB_CLIENT_ID
+
+Esta dentro do projeto criado no MongoDB Atlas em APP services, seleciona Application-o. La esta o:
+REALM_APP_ID
+
 ## executar o projeto - execute the project
 npx expo run:android
 
